@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ON9Shop - Online Shopping</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Arial', sans-serif;
+            }
+
+            body {
+                background-color: #f5f5f5;
+                color: #333;
+                line-height: 1.6;
+            }
+
+            header {
+                background-color: #fff;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                position: fixed;
+                width: 100%;
+                top: 0;
+                z-index: 1000;
+            }
+
+            .navbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1rem 2rem;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+                font-weight: bold;
+                color: #2c3e50;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+            }
+
+            .logo img {
+                height: 40px;
+                margin-right: 10px;
+            }
+
+            .nav-links {
+                display: flex;
+                list-style: none;
+            }
+
+            .nav-links li {
+                margin-left: 2rem;
+            }
+
+            .nav-links a {
+                text-decoration: none;
+                color: #2c3e50;
+                font-weight: 500;
+                transition: color 0.3s;
+            }
+
+            .nav-links a:hover {
+                color: #e74c3c;
+            }
+
+            .login-btn {
+                background-color: #e74c3c;
+                color: white;
+                border: none;
+                padding: 0.6rem 1.2rem;
+                border-radius: 4px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+            .login-btn:hover {
+                background-color: #c0392b;
+            }
+
+            .search-container {
+                background-color: #2c3e50;
+                padding: 1.5rem 0;
+                margin-top: 70px;
+            }
+
+            .search-bar {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 2rem;
+                display: flex;
+            }
+
+            .search-bar input {
+                flex: 1;
+                padding: 0.8rem 1rem;
+                border: none;
+                border-radius: 4px 0 0 4px;
+                font-size: 1rem;
+            }
+
+            .search-bar button {
+                background-color: #e74c3c;
+                color: white;
+                border: none;
+                padding: 0 1.5rem;
+                border-radius: 0 4px 4px 0;
+                cursor: pointer;
+                font-size: 1rem;
+                transition: background-color 0.3s;
+            }
+
+            .search-bar button:hover {
+                background-color: #c0392b;
+            }
+
+            .main-content {
+                max-width: 1200px;
+                margin: 2rem auto;
+                padding: 0 2rem;
+            }
+
+            .hero {
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                padding: 2rem;
+                margin-bottom: 2rem;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+                color: #2c3e50;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+                color: #7f8c8d;
+                margin-bottom: 1.5rem;
+            }
+
+            .cta-btn {
+                background-color: #e74c3c;
+                color: white;
+                border: none;
+                padding: 0.8rem 1.5rem;
+                border-radius: 4px;
+                font-size: 1rem;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+            .cta-btn:hover {
+                background-color: #c0392b;
+            }
+
+            .featured-products-section h2 {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+                color: #2c3e50;
+                text-align: center;
+            }
+
+            .products {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 2rem;
+                margin-top: 2rem;
+            }
+
+            .product-card {
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+                transition: transform 0.3s;
+            }
+
+            .product-card:hover {
+                transform: translateY(-5px);
+            }
+
+            .product-img {
+                height: 200px;
+                width: 100%;
+                object-fit: cover;
+            }
+
+            .product-info {
+                padding: 1.5rem;
+            }
+
+            .product-title {
+                font-size: 1.2rem;
+                margin-bottom: 0.5rem;
+                color: #2c3e50;
+            }
+
+            .product-price {
+                font-size: 1.1rem;
+                font-weight: bold;
+                color: #e74c3c;
+                margin-bottom: 1rem;
+            }
+
+            .add-to-cart {
+                background-color: #3498db;
+                color: white;
+                border: none;
+                padding: 0.6rem 1rem;
+                border-radius: 4px;
+                font-weight: bold;
+                cursor: pointer;
+                width: 100%;
+                transition: background-color 0.3s;
+            }
+
+            .add-to-cart:hover {
+                background-color: #2980b9;
+            }
+
+            .toast {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background-color: #4CAF50;
+                color: white;
+                padding: 16px;
+                border-radius: 4px;
+                z-index: 1500;
+                display: none;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                max-width: 350px;
+            }
+
+            .toast.error {
+                background-color: #f44336;
+            }
+
+            footer {
+                background-color: #2c3e50;
+                color: #ecf0f1;
+                padding: 3rem 0;
+                margin-top: 3rem;
+            }
+
+            .footer-content {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 2rem;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 2rem;
+            }
+
+            .footer-column h3 {
+                font-size: 1.3rem;
+                margin-bottom: 1.5rem;
+                color: #fff;
+            }
+
+            .footer-column ul {
+                list-style: none;
+            }
+
+            .footer-column ul li {
+                margin-bottom: 0.8rem;
+            }
+
+            .footer-column ul li a {
+                color: #bdc3c7;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+            .footer-column ul li a:hover {
+                color: #e74c3c;
+            }
+
+            .copyright {
+                text-align: center;
+                padding-top: 2rem;
+                margin-top: 2rem;
+                border-top: 1px solid #34495e;
+                color: #bdc3c7;
+            }
+
+            @media (max-width: 768px) {
+                .navbar {
+                    padding: 1rem;
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+
+                .nav-links {
+                    margin-top: 1rem;
+                    width: 100%;
+                    justify-content: space-between;
+                }
+
+                .nav-links li {
+                    margin-left: 0;
+                }
+
+                .search-container {
+                    margin-top: 120px;
+                }
+
+                .search-bar {
+                    padding: 0 1rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="toast" class="toast"></div>
+
+        <header>
+            <nav class="navbar">
+                <a href="HomePage.html" class="logo">
+                    <img src="image/umtlogo.jpg" alt="Logo">
+                    ON9Shop
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="products.jsp">Products</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="Cart.jsp">Cart</a></li>
+                    <li><a href="order.jsp">Order</a></li>
+                </ul>
+                <button class="login-btn" onclick="window.location.href = 'login.jsp'">Login</button>
+            </nav>
+        </header>
+
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" placeholder="Search for products..." id="search-input">
+                <button id="search-btn">Search</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <section class="hero">
+                <h1>Welcome to ON9Shop</h1>
+                <p>Discover amazing products at unbeatable prices</p>
+                <button class="cta-btn" onclick="window.location.href = 'products.jsp'">Shop Now</button>
+            </section>
+
+            <section class="featured-products-section">
+                <h2>Featured Products</h2>
+                <div class="products">
+                    <div class="product-card">
+                        <img src="image/P1.png" alt="Product 1" class="product-img">
+                        <div class="product-info">
+                            <h3 class="product-title">Skullcandy Crusher</h3>
+                            <p class="product-price" data-price="390.00">RM390.00</p>
+                            <button class="add-to-cart" data-product-id="P1">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="image/P2.png" alt="Product 2" class="product-img">
+                        <div class="product-info">
+                            <h3 class="product-title">Lenovo LOQ 15</h3>
+                            <p class="product-price" data-price="2900.00">RM 2900.00</p>
+                            <button class="add-to-cart" data-product-id="P2">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="image/P3.png" alt="Product 3" class="product-img">
+                        <div class="product-info">
+                            <h3 class="product-title">Asus ROG Azoth</h3>
+                            <p class="product-price" data-price="830.00">RM830.00</p>
+                            <button class="add-to-cart" data-product-id="P3">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="image/P4.png" alt="Product 4" class="product-img">
+                        <div class="product-info">
+                            <h3 class="product-title">Logitech G304</h3>
+                            <p class="product-price" data-price="110.00">RM110.00</p>
+                            <button class="add-to-cart" data-product-id="P4">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ON9Shop</h3>
+                    <p>Your one-stop shop for all your needs. Quality products at affordable prices.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Products</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Returns & Refunds</a></li>
+                        <li><a href="#">Track Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>Email: info@ON9Shop.com</li>
+                        <li>Phone: +60 0123456789</li>
+                        <li>Address: Kuala Nerus, Terengganu</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 ON9Shop. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const searchBtn = document.getElementById('search-btn');
+                const searchInput = document.getElementById('search-input');
+                const toast = document.getElementById('toast');
+
+                function showToast(message, isError = false) {
+                    toast.textContent = message;
+                    toast.className = isError ? "toast error" : "toast";
+                    toast.style.display = "block";
+
+                    setTimeout(function () {
+                        toast.style.display = "none";
+                    }, 3000);
+                }
+
+                searchBtn.addEventListener('click', function () {
+                    if (searchInput.value.trim() !== '') {
+                        showToast('Searching for: ' + searchInput.value);
+                    } else {
+                        showToast('Please enter a search term', true);
+                    }
+                });
+
+                searchInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        searchBtn.click();
+                    }
+                });
+
+                const loginBtn = document.querySelector('.login-btn');
+                loginBtn.addEventListener('click', function () {
+                    showToast('Login/Signup page would appear here');
+                });
+
+                document.querySelectorAll('.add-to-cart').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const productCard = this.closest('.product-card');
+                        const productName = productCard.querySelector('.product-title').textContent;
+                        const priceElement = productCard.querySelector('.product-price');
+                        const productPrice = priceElement.dataset.price; // Get from data attribute
+                        const productId = this.dataset.productId;
+
+                        this.disabled = true;
+                        const originalText = this.textContent;
+                        this.textContent = 'Adding...';
+
+                        if (isNaN(parseFloat(productPrice))) {
+                            showToast('Invalid product price', true);
+                            this.disabled = false;
+                            this.textContent = originalText;
+                            return;
+                        }
+
+                        fetch('AddToCartServlet', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: `product_id=${encodeURIComponent(productId)}&name=${encodeURIComponent(productName)}&price=${encodeURIComponent(productPrice)}&quantity=1`
+                        })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        return response.text().then(text => {
+                                            throw new Error(text || 'Network response was not ok');
+                                        });
+                                    }
+                                    return response.text();
+                                })
+                                .then(() => {
+                                    showToast(productName + ' added to cart!');
+                                    updateCartCount();
+                                    this.disabled = false;
+                                    this.textContent = originalText;
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    showToast('Failed to add item to cart: ' + error.message, true);
+                                    this.disabled = false;
+                                    this.textContent = originalText;
+                                });
+                    });
+                });
+
+                function updateCartCount() {
+                    fetch('GetCartCountServlet')
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                const cartCount = document.getElementById('cart-count');
+                                if (cartCount) {
+                                    cartCount.textContent = data.count;
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error updating cart count:', error);
+                            });
+                }
+
+                const ctaBtn = document.querySelector('.cta-btn');
+                ctaBtn.addEventListener('click', function () {
+                    showToast('Redirecting to products page');
+                });
+            });
+
+            window.addEventListener('scroll', function () {
+                const header = document.querySelector('header');
+                if (window.scrollY > 50) {
+                    header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+                } else {
+                    header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                }
+            });
+        </script>
+    </body>
+</html>
